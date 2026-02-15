@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSS Doctor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <main class="container">
+      <header class="hero">
+        <p class="badge">RSS Inspector</p>
+        <h1>RSS Doctor</h1>
+        <p class="lead">Paste a feed URL to inspect metadata and entries.</p>
+      </header>
+
+      <section class="panel">
+        <form id="feed-form" class="form" autocomplete="off">
+          <label for="feed-url">Feed URL</label>
+          <div class="form-row">
+            <input id="feed-url" name="url" type="url" placeholder="https://example.com/feed.xml" required />
+            <button type="submit">Inspect</button>
+          </div>
+          <p class="hint">Example: https://xkcd.com/atom.xml</p>
+        </form>
+        <div class="favorites-row">
+          <label for="favorites-select">Saved feeds</label>
+          <div class="form-row">
+            <select id="favorites-select">
+              <option value="">Select a saved feed</option>
+            </select>
+            <button id="save-favorite" type="button" class="secondary">Save current URL</button>
+          </div>
+          <button id="remove-favorite" type="button" class="danger">Remove selected</button>
+        </div>
+      </section>
+
+      <section id="status" class="status" aria-live="polite"></section>
+
+      <section id="results" class="results hidden">
+        <article class="panel">
+          <h2>Channel</h2>
+          <dl id="channel-details" class="details"></dl>
+        </article>
+
+        <article class="panel">
+          <div class="items-header">
+            <h2>Items</h2>
+            <span id="item-count" class="badge muted"></span>
+          </div>
+          <div class="filters">
+            <input id="filter-query" type="text" placeholder="Filter by title or text" />
+            <input id="filter-author" type="text" placeholder="Filter by author" />
+            <input id="filter-date-from" type="date" />
+            <input id="filter-date-to" type="date" />
+            <button id="clear-filters" type="button" class="secondary filters-clear">Clear filters</button>
+          </div>
+          <ol id="items-list" class="items"></ol>
+        </article>
+
+        <article class="panel">
+          <h2>Raw XML</h2>
+          <pre id="raw-xml" class="raw-xml"></pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

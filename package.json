@@ -1,0 +1,17 @@
+{
+  "name": "rssdoctor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Web app to inspect RSS/Atom feeds",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "fast-xml-parser": "^4.5.1"
+  }
+}
