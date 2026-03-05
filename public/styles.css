@@ -228,6 +228,42 @@ button.danger {
   color: #cbd5e1;
 }
 
+.media-icon {
+  margin-right: 0.35rem;
+  font-size: 1.05rem;
+  vertical-align: middle;
+}
+
+.item-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.field-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-family: "IBM Plex Mono", monospace;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: var(--muted);
+}
+
+.enclosure-link {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.enclosure-link:hover {
+  text-decoration: underline;
+}
+
 .raw-xml {
   margin: 0.85rem 0 0;
   max-height: 360px;

@@ -110,19 +110,43 @@ function applyFilters(items) {
   });
 }
 
+function mediaIcon(enclosure) {
+  if (!enclosure) return '';
+  const t = (enclosure.type || '').toLowerCase();
+  const u = (enclosure.url || '').toLowerCase();
+  if (t.startsWith('audio/') || u.endsWith('.mp3') || u.endsWith('.m4a')) {
+    return '<span class="media-icon" title="Audio enclosure">&#127925;</span>';
+  }
+  if (t.startsWith('video/') || u.endsWith('.mp4')) {
+    return '<span class="media-icon" title="Video enclosure">&#127908;</span>';
+  }
+  return '<span class="media-icon" title="Enclosure">&#128206;</span>';
+}
+
 function renderItems(items) {
   itemsListEl.innerHTML = items
     .map((item) => {
       const title = escapeHtml(item.title || '(untitled)');
+      const icon = mediaIcon(item.enclosure);
       const link = item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noreferrer">${title}</a>` : title;
       const meta = [item.pubDate, item.author || item.creator, item.guid].filter(Boolean).map(escapeHtml).join(' | ');
       const desc = pickText(item);
 
+      const fieldTags = (item.fields || [])
+        .map((f) => `<span class="field-tag">${escapeHtml(f)}</span>`)
+        .join('');
+
+      const enclosureLink = item.enclosure && item.enclosure.url
+        ? `<a class="enclosure-link" href="${escapeHtml(item.enclosure.url)}" target="_blank" rel="noreferrer">&#128279; ${escapeHtml(item.enclosure.type || 'enclosure')}</a>`
+        : '';
+
       return `
         <li class="item">
-          <p class="item-title">${link}</p>
+          <p class="item-title">${icon}${link}</p>
           <div class="item-meta">${meta || 'No metadata'}</div>
+          ${fieldTags ? `<div class="item-fields">${fieldTags}</div>` : ''}
           <p class="item-desc">${escapeHtml(desc || 'No description')}</p>
+          ${enclosureLink}
         </li>
       `;
     })

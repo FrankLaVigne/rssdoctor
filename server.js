@@ -47,16 +47,34 @@ function parseFeedObject(root) {
         lastBuildDate: asText(channel.lastBuildDate),
         pubDate: asText(channel.pubDate)
       },
-      items: rawItems.map((item) => ({
-        title: asText(item.title),
-        link: getLink(item.link),
-        guid: asText(item.guid),
-        pubDate: asText(item.pubDate),
-        creator: asText(item['dc:creator']),
-        author: asText(item.author),
-        description: asText(item.description),
-        content: asText(item['content:encoded'])
-      }))
+      items: rawItems.map((item) => {
+        const enc = item.enclosure;
+        const enclosure = enc ? {
+          url: enc['@_url'] || '',
+          type: enc['@_type'] || '',
+          length: enc['@_length'] || ''
+        } : null;
+
+        const mapped = {
+          title: asText(item.title),
+          link: getLink(item.link),
+          guid: asText(item.guid),
+          pubDate: asText(item.pubDate),
+          creator: asText(item['dc:creator']),
+          author: asText(item.author),
+          description: asText(item.description),
+          content: asText(item['content:encoded']),
+          enclosure
+        };
+
+        const fields = ['title', 'link', 'guid', 'pubDate', 'author', 'description', 'content']
+          .filter((k) => mapped[k]);
+        if (mapped.creator) fields.push('dc:creator');
+        if (enclosure) fields.push('enclosure');
+        mapped.fields = fields;
+
+        return mapped;
+      })
     };
   }
 
@@ -74,16 +92,34 @@ function parseFeedObject(root) {
         lastBuildDate: asText(feed.updated),
         pubDate: ''
       },
-      items: rawEntries.map((entry) => ({
-        title: asText(entry.title),
-        link: getLink(entry.link),
-        guid: asText(entry.id),
-        pubDate: asText(entry.updated || entry.published),
-        creator: asText(entry.author && first(entry.author).name),
-        author: asText(entry.author && first(entry.author).name),
-        description: asText(entry.summary),
-        content: asText(entry.content)
-      }))
+      items: rawEntries.map((entry) => {
+        const links = Array.isArray(entry.link) ? entry.link : (entry.link ? [entry.link] : []);
+        const encLink = links.find((l) => l && l['@_rel'] === 'enclosure');
+        const enclosure = encLink ? {
+          url: encLink['@_href'] || '',
+          type: encLink['@_type'] || '',
+          length: encLink['@_length'] || ''
+        } : null;
+
+        const mapped = {
+          title: asText(entry.title),
+          link: getLink(entry.link),
+          guid: asText(entry.id),
+          pubDate: asText(entry.updated || entry.published),
+          creator: asText(entry.author && first(entry.author).name),
+          author: asText(entry.author && first(entry.author).name),
+          description: asText(entry.summary),
+          content: asText(entry.content),
+          enclosure
+        };
+
+        const fields = ['title', 'link', 'guid', 'pubDate', 'author', 'description', 'content']
+          .filter((k) => mapped[k]);
+        if (enclosure) fields.push('enclosure');
+        mapped.fields = fields;
+
+        return mapped;
+      })
     };
   }
 
