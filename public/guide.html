@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Podcast RSS Field Guide | RSS Doctor</title>
+    <meta name="description" content="A comprehensive guide to podcast RSS feed fields — from the origins of RSS enclosures to Podcasting 2.0. Understand every tag, compare platforms, and optimize your feed." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/guide.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <main class="container guide-container">
+      <header class="hero">
+        <p class="badge">Field Guide</p>
+        <h1>The Podcast RSS Field Guide</h1>
+        <p class="lead">From a single <code>&lt;enclosure&gt;</code> tag to 30+ namespace extensions &mdash; how podcast RSS evolved, where it stands today, and where it&rsquo;s headed.</p>
+        <a href="/" class="back-link">&larr; Back to RSS Doctor</a>
+      </header>
+
+      <nav class="panel toc">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#origins">The Origins (2000&ndash;2005)</a></li>
+          <li><a href="#itunes">The iTunes Era (2005&ndash;2019)</a></li>
+          <li><a href="#podcasting2">Podcasting 2.0 &mdash; The Open Revolt (2020&ndash;Present)</a></li>
+          <li><a href="#apple-vs-spotify">Apple Podcasts vs Spotify</a></li>
+          <li><a href="#directories">The Full Directory Landscape</a></li>
+          <li><a href="#hosting">Hosting Platforms &amp; Tag Support</a></li>
+          <li><a href="#future">Where It&rsquo;s Headed</a></li>
+        </ol>
+      </nav>
+
+      <!-- ERA 1 -->
+      <section id="origins" class="panel">
+        <h2>Era 1: The Origins (2000&ndash;2005)</h2>
+        <p>Podcasting started with a simple idea: what if RSS feeds could carry audio files?</p>
+        <ul>
+          <li><strong>2000</strong> &mdash; Tristan Louis proposes attaching media files to RSS feeds.</li>
+          <li><strong>2003</strong> &mdash; Dave Winer builds the first audio RSS feed for journalist Christopher Lydon.</li>
+          <li><strong>2004</strong> &mdash; RSS 2.0&rsquo;s <code>&lt;enclosure&gt;</code> tag becomes the foundation of podcasting &mdash; just a URL, file size, and MIME type.</li>
+          <li><strong>2005</strong> &mdash; Apple adds podcast support to iTunes, changing everything.</li>
+        </ul>
+        <h3>Base RSS 2.0 Tags</h3>
+        <p>These are the standard tags that existed before any podcast-specific extensions:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tag</th><th>Level</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;title&gt;</code></td><td>Channel / Item</td><td>Show or episode name</td></tr>
+              <tr><td><code>&lt;link&gt;</code></td><td>Channel / Item</td><td>URL to the show or episode page</td></tr>
+              <tr><td><code>&lt;description&gt;</code></td><td>Channel / Item</td><td>Show or episode summary</td></tr>
+              <tr><td><code>&lt;pubDate&gt;</code></td><td>Channel / Item</td><td>Publication date (RFC 822)</td></tr>
+              <tr><td><code>&lt;guid&gt;</code></td><td>Item</td><td>Unique identifier for the episode</td></tr>
+              <tr><td><code>&lt;enclosure&gt;</code></td><td>Item</td><td>The media file (URL, size, MIME type)</td></tr>
+              <tr><td><code>&lt;author&gt;</code></td><td>Item</td><td>Episode author email</td></tr>
+              <tr><td><code>&lt;category&gt;</code></td><td>Channel</td><td>Feed categories</td></tr>
+              <tr><td><code>&lt;language&gt;</code></td><td>Channel</td><td>Feed language (ISO 639)</td></tr>
+              <tr><td><code>&lt;lastBuildDate&gt;</code></td><td>Channel</td><td>When the feed was last updated</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ERA 2 -->
+      <section id="itunes" class="panel">
+        <h2>Era 2: The iTunes Era (2005&ndash;2019)</h2>
+        <p>When Apple launched podcast support in iTunes in 2005, they introduced their own XML namespace: <code>xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"</code>. Because Apple was the dominant podcast directory, every other platform adopted these tags. They became the de facto standard.</p>
+
+        <h3>Channel-Level iTunes Tags</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tag</th><th>Purpose</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;itunes:author&gt;</code></td><td>Show author name</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:owner&gt;</code></td><td>Owner name and email (not public-facing)</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:image&gt;</code></td><td>Show artwork (min 1400&times;1400, rec 3000&times;3000)</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:category&gt;</code></td><td>Apple Podcasts category &amp; subcategory</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:explicit&gt;</code></td><td>Explicit content flag (true/false)</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:type&gt;</code></td><td>Show type: episodic or serial</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:complete&gt;</code></td><td>Signals no more episodes will be published</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:block&gt;</code></td><td>Prevent the show from appearing in Apple Podcasts</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:new-feed-url&gt;</code></td><td>Redirect to a new feed URL</td><td>Current</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Item-Level iTunes Tags</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tag</th><th>Purpose</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;itunes:title&gt;</code></td><td>Episode title (clean, no episode numbers)</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:episode&gt;</code></td><td>Episode number</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:season&gt;</code></td><td>Season number</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:episodeType&gt;</code></td><td>full, trailer, or bonus</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:duration&gt;</code></td><td>Episode length (seconds or HH:MM:SS)</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:image&gt;</code></td><td>Episode-specific artwork</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:explicit&gt;</code></td><td>Episode-level explicit flag</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:block&gt;</code></td><td>Hide specific episode from Apple Podcasts</td><td>Current</td></tr>
+              <tr><td><code>&lt;itunes:summary&gt;</code></td><td>Episode summary (now often replaced by <code>&lt;description&gt;</code>)</td><td>Deprecated</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Also commonly used during this era: <code>&lt;content:encoded&gt;</code> for rich HTML show notes, <code>&lt;dc:creator&gt;</code> for author names, and <code>&lt;atom:link rel="self"&gt;</code> for feed self-referencing.</p>
+      </section>
+
+      <!-- ERA 3 -->
+      <section id="podcasting2" class="panel">
+        <h2>Era 3: Podcasting 2.0 &mdash; The Open Revolt (2020&ndash;Present)</h2>
+        <p>In 2020, Adam Curry and Dave Jones launched the <strong>Podcast Index</strong> to wrest control of podcast standards away from Apple and Spotify. The result: a new open namespace with 30+ tags that any app or host can implement.</p>
+        <p>Namespace: <code>xmlns:podcast="https://podcastindex.org/namespace/1.0"</code></p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tag</th><th>What It Enables</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;podcast:transcript&gt;</code></td><td>Captions and transcripts (SRT, VTT, JSON)</td></tr>
+              <tr><td><code>&lt;podcast:chapters&gt;</code></td><td>Independently editable chapter markers</td></tr>
+              <tr><td><code>&lt;podcast:person&gt;</code></td><td>Credit hosts, guests, and producers with roles</td></tr>
+              <tr><td><code>&lt;podcast:soundbite&gt;</code></td><td>Suggest short clips for promotional use</td></tr>
+              <tr><td><code>&lt;podcast:trailer&gt;</code></td><td>Season-specific trailers</td></tr>
+              <tr><td><code>&lt;podcast:funding&gt;</code></td><td>Donation and funding links</td></tr>
+              <tr><td><code>&lt;podcast:value&gt;</code></td><td>Payment layer (Value4Value / streaming sats)</td></tr>
+              <tr><td><code>&lt;podcast:liveItem&gt;</code></td><td>Live show delivery to podcast apps</td></tr>
+              <tr><td><code>&lt;podcast:alternateEnclosure&gt;</code></td><td>Multiple bitrates, video versions, FLAC</td></tr>
+              <tr><td><code>&lt;podcast:guid&gt;</code></td><td>Global unique podcast identifier (platform-independent)</td></tr>
+              <tr><td><code>&lt;podcast:medium&gt;</code></td><td>Content type: podcast, music, audiobook, video, newsletter</td></tr>
+              <tr><td><code>&lt;podcast:socialInteract&gt;</code></td><td>Episode comments and discussion threads</td></tr>
+              <tr><td><code>&lt;podcast:location&gt;</code></td><td>Geographic tagging for content</td></tr>
+              <tr><td><code>&lt;podcast:locked&gt;</code></td><td>Prevent unauthorized feed imports</td></tr>
+              <tr><td><code>&lt;podcast:podroll&gt;</code></td><td>Cross-promote other podcasts</td></tr>
+              <tr><td><code>&lt;podcast:publisher&gt;</code></td><td>Publisher/network attribution</td></tr>
+              <tr><td><code>&lt;podcast:license&gt;</code></td><td>Content licensing terms</td></tr>
+              <tr><td><code>&lt;podcast:season&gt;</code></td><td>Named seasons and series</td></tr>
+              <tr><td><code>&lt;podcast:episode&gt;</code></td><td>Episode numbering with display text</td></tr>
+              <tr><td><code>&lt;podcast:chat&gt;</code></td><td>Chat integration for live and recorded episodes</td></tr>
+              <tr><td><code>&lt;podcast:contentLink&gt;</code></td><td>Related content and resource links</td></tr>
+              <tr><td><code>&lt;podcast:updateFrequency&gt;</code></td><td>Publishing schedule hints for apps</td></tr>
+              <tr><td><code>&lt;podcast:block&gt;</code></td><td>Per-directory exclusion control</td></tr>
+              <tr><td><code>&lt;podcast:txt&gt;</code></td><td>Verification and metadata text records</td></tr>
+              <tr><td><code>&lt;podcast:remoteItem&gt;</code></td><td>Reference episodes from other feeds</td></tr>
+              <tr><td><code>&lt;podcast:source&gt;</code></td><td>Alternate feed sources for redundancy</td></tr>
+              <tr><td><code>&lt;podcast:integrity&gt;</code></td><td>File integrity verification (hash)</td></tr>
+              <tr><td><code>&lt;podcast:images&gt;</code></td><td>Multiple image resources (deprecated in favor of <code>&lt;podcast:image&gt;</code>)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- APPLE VS SPOTIFY -->
+      <section id="apple-vs-spotify" class="panel">
+        <h2>Apple Podcasts vs Spotify</h2>
+
+        <h3>Philosophy: Open vs Closed</h3>
+        <p><strong>Apple Podcasts</strong> leans into the open RSS ecosystem. You host your feed anywhere, submit the RSS URL, and Apple indexes it. Your feed remains yours &mdash; Apple is a directory, not a host.</p>
+        <p><strong>Spotify</strong> pulls in the opposite direction. If you host on Spotify for Creators, your RSS feed is hidden by default &mdash; you have to manually enable it to distribute elsewhere. Spotify wants to own the relationship.</p>
+
+        <h3>Monetization Comparison</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Apple Podcasts</th><th>Spotify</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Subscription cut</strong></td><td>30% year 1, 15% after</td><td>5.5% transaction fee</td></tr>
+              <tr><td><strong>Ad revenue</strong></td><td>N/A (you sell your own)</td><td>50% via Partner Program</td></tr>
+              <tr><td><strong>Minimum audience</strong></td><td>None for subscriptions</td><td>1,000 listeners + 2,000 hrs/month for ads</td></tr>
+              <tr><td><strong>Barrier to entry</strong></td><td>Low</td><td>Higher for ad monetization</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Creator Tools</h3>
+        <p><strong>Spotify offers:</strong> customizable show pages, social links, episode recommendations, video podcasts, Q&amp;A and polls (proprietary &mdash; not in RSS), built-in analytics.</p>
+        <p><strong>Apple offers:</strong> Apple Podcasts Subscriptions, delegated delivery, and as of 2026 &mdash; native video support via HLS (bypasses RSS, uses a separate API).</p>
+
+        <h3>RSS Feed Differences</h3>
+        <ul>
+          <li><strong>Apple</strong> reads your RSS feed faithfully &mdash; iTunes namespace tags directly control how your show appears.</li>
+          <li><strong>Spotify</strong> reads RSS but layers on proprietary features (Q&amp;A, polls, video) that live outside the feed.</li>
+          <li>Spotify limits episode files to <strong>200 MB</strong>.</li>
+          <li>Apple&rsquo;s new video support uses HLS, not RSS enclosures.</li>
+        </ul>
+
+        <h3>How to Leverage Both</h3>
+        <ol>
+          <li><strong>Host independently</strong> &mdash; don&rsquo;t host on Spotify directly, or you lose control of your RSS feed.</li>
+          <li><strong>Optimize your iTunes tags</strong> &mdash; they&rsquo;re the lingua franca both platforms understand.</li>
+          <li><strong>Use Podcasting 2.0 tags</strong> &mdash; transcripts, chapters, and person credits light up on open apps and future-proof your feed.</li>
+          <li><strong>Treat Spotify as a distribution channel</strong>, not your home base &mdash; keep RSS as the source of truth.</li>
+          <li><strong>Use platform-specific features strategically</strong> &mdash; Spotify&rsquo;s Q&amp;A, Apple&rsquo;s subscriptions &mdash; but don&rsquo;t depend on what locks you in.</li>
+          <li><strong>Monitor your feed on both</strong> &mdash; use <a href="/">RSS Doctor</a> to inspect what each platform actually sees.</li>
+        </ol>
+      </section>
+
+      <!-- DIRECTORIES -->
+      <section id="directories" class="panel">
+        <h2>The Full Podcast Directory Landscape</h2>
+        <p>Apple and Spotify get the most attention, but they&rsquo;re not the whole market. Smart creators distribute everywhere.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Platform</th><th>Reach</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Apple Podcasts</strong></td><td>~37% audio share</td><td>Largest audio directory, 2M+ shows</td></tr>
+              <tr><td><strong>Spotify</strong></td><td>~32% audio share</td><td>7M+ titles, strong in younger demographics</td></tr>
+              <tr><td><strong>YouTube / YouTube Music</strong></td><td>#1 globally (~39%)</td><td>77M subscribers, dominant for video podcasts</td></tr>
+              <tr><td><strong>Amazon Music / Audible</strong></td><td>55M+ listeners</td><td>Bundled with Prime, growing fast</td></tr>
+              <tr><td><strong>iHeartRadio</strong></td><td>Major (US)</td><td>Largest US radio company, strong spoken-word</td></tr>
+              <tr><td><strong>Podcast Addict</strong></td><td>#1 Android app</td><td>10M+ downloads, power-user favorite</td></tr>
+              <tr><td><strong>PocketCasts</strong></td><td>Significant</td><td>Partially owned by NPR, cross-platform</td></tr>
+              <tr><td><strong>Overcast</strong></td><td>Significant (iOS)</td><td>Popular iOS app, indie-developed</td></tr>
+              <tr><td><strong>Acast</strong></td><td>60M+ MAU</td><td>Network + host + directory</td></tr>
+              <tr><td><strong>Podchaser</strong></td><td>Niche</td><td>&ldquo;IMDB of podcasts&rdquo; &mdash; discovery and reviews</td></tr>
+              <tr><td><strong>Player FM</strong></td><td>Growing</td><td>20M+ free podcasts, strong search/discovery</td></tr>
+              <tr><td><strong>Fountain</strong></td><td>Niche</td><td>Podcasting 2.0 native, Value4Value payments</td></tr>
+              <tr><td><strong>CastoPod</strong></td><td>Niche</td><td>Open-source, full Podcasting 2.0 support</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Why This Matters</h3>
+        <ul>
+          <li><strong>YouTube is the global #1</strong> &mdash; many creators ignore it, but 39% of worldwide listeners prefer it.</li>
+          <li><strong>Amazon/Audible is underrated</strong> &mdash; 55M+ listeners and bundled with Prime.</li>
+          <li><strong>Open apps</strong> (Podcast Addict, PocketCasts, Fountain) are where Podcasting 2.0 tags actually render &mdash; transcripts, chapters, Value4Value.</li>
+          <li><strong>Your RSS feed is the universal key</strong> &mdash; one feed, distributed to all of these. That&rsquo;s the power of open RSS.</li>
+        </ul>
+      </section>
+
+      <!-- HOSTING PLATFORMS -->
+      <section id="hosting" class="panel">
+        <h2>Most Hosting Platforms Handle This For You</h2>
+        <p>Most podcasters never write RSS XML by hand. Your hosting platform generates and manages your feed, including namespace tags. But <strong>not all platforms support the same tags</strong> &mdash; and that determines what listeners see in their apps.</p>
+
+        <h3>Podcasting 2.0 Tag Support by Host</h3>
+        <div class="table-wrap">
+          <table class="compact">
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Transcript</th>
+                <th>Chapters</th>
+                <th>Funding</th>
+                <th>Person</th>
+                <th>Value</th>
+                <th>Live</th>
+                <th>Podroll</th>
+                <th>Soundbite</th>
+                <th>GUID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Blubrry</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td><strong>TrueFans</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td><strong>Podhome</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td><strong>RSS.com</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td><strong>Castopod</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td><strong>Castos</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+              <tr><td><strong>Buzzsprout</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+              <tr><td><strong>Transistor</strong></td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+              <tr><td><strong>Libsyn</strong></td><td class="yes">Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+              <tr><td><strong>Spotify for Creators</strong></td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>What This Means For Creators</h3>
+        <ul>
+          <li><strong>Your host determines your RSS capabilities.</strong> If your host doesn&rsquo;t support <code>&lt;podcast:transcript&gt;</code>, your transcript won&rsquo;t appear in apps that look for it &mdash; even if you have one.</li>
+          <li><strong>The big names lag behind.</strong> Buzzsprout and Libsyn support the basics but miss advanced Podcasting 2.0 tags. Smaller hosts like Blubrry, TrueFans, and Podhome are leading.</li>
+          <li><strong>Spotify for Creators is the most closed.</strong> It doesn&rsquo;t even expose an RSS feed by default and supports zero Podcasting 2.0 tags.</li>
+          <li><strong>Use <a href="/">RSS Doctor</a> to check.</strong> Inspect your feed to see exactly which tags your host is generating &mdash; and what you&rsquo;re missing.</li>
+        </ul>
+      </section>
+
+      <!-- FUTURE -->
+      <section id="future" class="panel">
+        <h2>Where It&rsquo;s Headed</h2>
+        <ul>
+          <li><strong>Video podcasting via RSS</strong> &mdash; <code>&lt;podcast:alternateEnclosure&gt;</code> enables video alongside audio in a single feed. YouTube dominates video podcasts today, but open RSS is catching up.</li>
+          <li><strong>AI-ready feeds</strong> &mdash; transcripts are becoming standard, enabling AI-powered search, summarization, and discovery. Your feed becomes a structured data source, not just a media delivery mechanism.</li>
+          <li><strong>Monetization built into RSS</strong> &mdash; Value4Value and streaming payments let listeners pay creators directly, with no platform taking a cut.</li>
+          <li><strong>Interactivity</strong> &mdash; live shows, comments, and chat, all delivered through the RSS feed itself.</li>
+          <li><strong>Decentralization</strong> &mdash; <code>&lt;podcast:guid&gt;</code> and Podping reduce dependency on any single directory or platform. Your podcast identity is portable.</li>
+          <li><strong>619M+ global listeners by 2026</strong> &mdash; the audience is growing. The question is whether the open ecosystem or the walled gardens will serve them.</li>
+        </ul>
+      </section>
+
+      <footer class="guide-footer">
+        <p>Built by <a href="/">RSS Doctor</a> &mdash; inspect your feed to see these tags in action.</p>
+      </footer>
+    </main>
+  </body>
+</html>

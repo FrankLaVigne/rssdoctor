@@ -178,6 +178,10 @@ app.get('/api/feed', async (req, res) => {
   }
 });
 
+app.get('/guide', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'guide.html'));
+});
+
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
